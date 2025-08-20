@@ -1,4 +1,5 @@
 import Link from "next/link";
+import style from "./global-layout.module.css";
 
 export default function GlobalLayout({
   children
@@ -6,12 +7,12 @@ export default function GlobalLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <header>
+    <div className={style.container}>
+      <header className={style.header}>
         <Link href="/">ONE BOOK</Link>
       </header>
-      <main>{children}</main>
-      <footer>아잠</footer>
+      <main className={style.main}>{children}</main>
+      <footer className={style.footer}>아잠</footer>
     </div>
   );
 }
