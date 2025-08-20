@@ -1,4 +1,6 @@
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import style from "./[id].module.css";
+import fetchOneBook from "@/lib/fetch-one-book";
 
 const mockData = {
   id: 1,
@@ -9,19 +11,31 @@ const mockData = {
   author: "이정환",
   publisher: "프로그래밍인사이트",
   coverImgUrl:
-    "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg",
+    "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg"
 };
 
-export default function Page() {
-  const {
-    id,
-    title,
-    subTitle,
-    description,
-    author,
-    publisher,
-    coverImgUrl,
-  } = mockData;
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const id = context.params!.id;
+  const book = await fetchOneBook(Number(id));
+  console.log("id", id);
+
+  return {
+    props: {
+      book
+    }
+  };
+};
+
+export default function Page({
+  book
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (!book) {
+    return "책 정보를 찾을 수 없습니다";
+  }
+  const { id, title, subTitle, description, author, publisher, coverImgUrl } =
+    book;
 
   return (
     <div className={style.container}>
