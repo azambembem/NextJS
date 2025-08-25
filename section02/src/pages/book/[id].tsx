@@ -48,7 +48,25 @@ export default function Page({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   if (router.isFallback) {
-    return "로딩중...";
+    return (
+      <>
+        <Head>
+          <title>책 관리 앱 - 검색결과</title>
+          <meta
+            property="og:image"
+            name="description"
+            content="/thumbnail.png"
+          />
+
+          <meta property="og:title" content="책 관리 앱" />
+          <meta
+            property="og:description"
+            content="책 관리 앱 등록된 도서들을 만나보세요"
+          />
+        </Head>
+        <div>Loading...</div>
+      </>
+    );
   }
   if (!book) {
     return "책 정보를 찾을 수 없습니다";
