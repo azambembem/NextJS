@@ -4,7 +4,10 @@ import style from "./layout.module.css";
 import { BookData } from "@/types";
 
 async function Footer() {
-  const response = await fetch("http://localhost:12345/book");
+  const response = await fetch("http://localhost:12345/book", {
+    cache: "force-cache"
+  });
+
   if (!response.ok) {
     return <footer>제작 @winterlood</footer>;
   }
