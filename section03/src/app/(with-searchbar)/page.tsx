@@ -4,7 +4,10 @@ import books from "@/mock/books.json";
 import { BookData } from "@/types";
 
 async function AllBooks() {
-  const response = await fetch("http://localhost:12345/book");
+  const response = await fetch("http://localhost:12345/bookds");
+  if (!response.ok) {
+    return <div>데이터를 찾을 수 없습니다</div>;
+  }
   const allBooks: BookData[] = await response.json();
 
   return (
