@@ -1,12 +1,24 @@
 import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import books from "@/mock/books.json";
+import { BookData } from "@/types";
 
-export default async function Home() {
+async function AllBooks() {
   const response = await fetch("http://localhost:12345/book");
-  const allBooks = await response.json();
-  console.log(allBooks);
+  const allBooks: BookData[] = await response.json();
 
+  return (
+    <div>
+      {allBooks.map((book) => (
+        <BookItem key={book.id} {...book} />
+      ))}
+    </div>
+  );
+}
+
+function RecoBooks() {}
+
+export default function Home() {
   return (
     <div className={style.container}>
       <section>
@@ -17,9 +29,7 @@ export default async function Home() {
       </section>
       <section>
         <h3>등록된 모든 도서</h3>
-        {books.map((book) => (
-          <BookItem key={book.id} {...book} />
-        ))}
+        <AllBooks />
       </section>
     </div>
   );
