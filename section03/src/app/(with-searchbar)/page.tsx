@@ -2,7 +2,11 @@ import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import books from "@/mock/books.json";
 
-export default function Home() {
+export default async function Home() {
+  const response = await fetch("http://localhost:12345/book");
+  const allBooks = await response.json();
+  console.log(allBooks);
+
   return (
     <div className={style.container}>
       <section>
