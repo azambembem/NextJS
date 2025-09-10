@@ -5,7 +5,10 @@ import { BookData } from "@/types";
 
 async function AllBooks() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    {
+      cache: "no-store"
+    }
   );
   if (!response.ok) {
     return <div>데이터를 찾을 수 없습니다...</div>;
@@ -23,7 +26,10 @@ async function AllBooks() {
 
 async function RecoBooks() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`
+    `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
+    {
+      cache: "force-cache"
+    }
   );
   if (!response.ok) {
     return <div>데이터를 찾을 수 없습니다...</div>;
